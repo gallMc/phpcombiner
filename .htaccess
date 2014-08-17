@@ -1,0 +1,20 @@
+AddDefaultCharset UTF-8
+
+Options +FollowSymLinks
+Options -Indexes
+
+DirectoryIndex index.php
+
+RewriteEngine On
+
+RewriteCond %{HTTP_HOST} ^www\.(.*) [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+RewriteRule ^(.+)\.shtml$ /$1 [L,R]
+
+RewriteRule .(inc.php|tpl.php|class.php|mdl.php)$ /error404
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.*)$ index.php?page_url=$1 [L,QSA]
+
+ErrorDocument 404 /error404
